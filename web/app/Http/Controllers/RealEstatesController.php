@@ -37,14 +37,17 @@ class RealEstatesController extends Controller
 
     # Create RealEstates object
     public function store(Request $request) {
-        $realEstate = RealEstates::create([
-            'title' => $request->input('title'),
-            'city' => $request->input('city'),
-            'address' => $request->input('address'),
-            'bedrooms' => $request->input('bedrooms'),
-            'bathrooms' => $request->input('bathrooms'),
-            'price' => $request->input('price'),
-        ]);
+        // $realEstate = RealEstates::create([
+        //     'title' => $request->input('title'),
+        //     'city' => $request->input('city'),
+        //     'address' => $request->input('address'),
+        //     'bedrooms' => $request->input('bedrooms'),
+        //     'bathrooms' => $request->input('bathrooms'),
+        //     'price' => $request->input('price'),
+        // ]);
+
+        $data = $request->json()->all();
+        $realEstate = RealEstates::create($data);
 
         return response()->json($realEstate, 201);
     }
