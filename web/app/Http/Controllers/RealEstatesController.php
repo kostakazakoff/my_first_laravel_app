@@ -14,7 +14,15 @@ class RealEstatesController extends Controller
     public function listAll(Request $request) {
         // $search = $request->input('search');
 
-        $realEstates = RealEstates::all($columns = ['id', 'title', 'city', 'address', 'bedrooms', 'bathrooms', 'price']);
+        $realEstates = RealEstates::all($columns = [
+            'id',
+            'title',
+            'city',
+            'address',
+            'bedrooms',
+            'bathrooms',
+            'price'
+        ]);
         
         // $result = array();
         // foreach($realEstates as $re) {
@@ -26,27 +34,27 @@ class RealEstatesController extends Controller
 
     # Show single RealEstates object from
     public function show(string $id, Request $request) {        
-        $realEstate = RealEstates::select('id', 'title', 'city', 'address', 'bedrooms', 'bathrooms', 'price')->findOrFail($id);
-
-        // if (!$realEstate) {
-        //     return response()->json(['message' => 'Real Estate not found'], 404);
-        // }
+        $realEstate = RealEstates::select(
+            'id',
+            'title',
+            'city',
+            'address',
+            'bedrooms',
+            'bathrooms',
+            'price')
+        ->findOrFail($id);
 
         return response()->json($realEstate);
     }
 
     # Create RealEstates object
     public function store(Request $request) {
-        // $realEstate = RealEstates::create([
-        //     'title' => $request->input('title'),
-        //     'city' => $request->input('city'),
-        //     'address' => $request->input('address'),
-        //     'bedrooms' => $request->input('bedrooms'),
-        //     'bathrooms' => $request->input('bathrooms'),
-        //     'price' => $request->input('price'),
+        $data = $request->json()->all();
+        // $validatedData = $request->validateWithBag([
+        //     'title' => ['required', 'unique:posts', 'max:200'],
+        //     'city' => ['required'],
         // ]);
 
-        $data = $request->json()->all();
         $realEstate = RealEstates::create($data);
 
         return response()->json($realEstate, 201);
