@@ -5,13 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\RealEstates;
 use Illuminate\Http\Request;
 
+use function Laravel\Prompts\search;
+
 class RealEstatesController extends Controller
 {
+    
     # Show all RealEstates objects
-    public function listAll() {
-        $realEstates = RealEstates::all($columns = ['id', 'title', 'city', 'address', 'bedrooms', 'bathrooms', 'price']);
-        // $result = array();
+    public function listAll(Request $request) {
+        // $search = $request->input('search');
 
+        $realEstates = RealEstates::all($columns = ['id', 'title', 'city', 'address', 'bedrooms', 'bathrooms', 'price']);
+        
+        // $result = array();
         // foreach($realEstates as $re) {
         //     $result[$re['id']] = $re;
         // }
@@ -56,8 +61,9 @@ class RealEstatesController extends Controller
     # Delete RealEstates object
     public function delete($id) {
         $realEstate = RealEstates::findOrFail($id);
+        $title = $realEstate['title'];
         $realEstate->delete();
 
-        return response()->json(['message' => 'Real Estate deleted'], 200);
+        return response()->json(['message' => $title.' deleted'], 200);
     }
 }
