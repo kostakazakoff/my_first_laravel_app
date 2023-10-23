@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\RealEstatesControler;
+use App\Http\Controllers\RealEstatesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,22 +18,22 @@ use Illuminate\Support\Facades\Route;
 /*
 API Routes:
 '/' => 'index',
-'/real_estates' => 'All real_estates'----------------------------------------------------------------,
+'/real_estates' => 'All real_estates',
 '/real_estates/{id}' => 'real_estate with id',
 '/real_estates/create' => 'Create real estate',
 '/real_estates/edit/{id}' => 'Update real estate with id',
 '/real_estates/delete/{id}' => 'Delete real estate with id',
 */
 
-Route::get('/real_estates', [RealEstatesControler::class, 'listAll']);
+Route::get('/real_estates', [RealEstatesController::class, 'listAll']);
 
-Route::get('/real_estates/{realEstate}', [RealEstatesControler::class, 'show']);
+Route::get('/real_estates/{realEstate}', [RealEstatesController::class, 'show']);
 
-Route::post('/real_estates/create', [RealEstatesControler::class, 'create']);
+Route::post('/real_estates/create', [RealEstatesController::class, 'store']);
 
-Route::put('real_estates/edit/{realEstate}', [RealEstatesControler::class, 'update']);
+Route::put('real_estates/edit/{realEstate}', [RealEstatesController::class, 'update']);
 
-Route::delete('real_estates/delete/{realEstate}', [RealEstatesControler::class, 'delete']);
+Route::delete('real_estates/delete/{realEstate}', [RealEstatesController::class, 'delete']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
