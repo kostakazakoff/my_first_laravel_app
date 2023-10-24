@@ -2,82 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RealEstates;
+use App\Http\Requests\StoreEstateRequest;
+use App\Models\RealEstate;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 use function Laravel\Prompts\search;
 
 class RealEstatesController extends Controller
 {
-    
-    # Show all RealEstates objects
-    public function listAll(Request $request) {
-        $realEstates = RealEstates::all($columns = [
-            'id',
-            'title',
-            'city',
-            'address',
-            'bedrooms',
-            'bathrooms',
-            'price'
-        ]);
+ 
+    public function list(): ?JsonResponse {
+        $list = RealEstate::all();
 
-        // $filteredCollection = $realEstates->filter(function ($item) {
-        //     global $search;
-        //     return $item <= $search;
-        // })->values();
-        
-        // $result = array();
-        // foreach($realEstates as $re) {
-        //     $result[$re['id']] = $re;
-        // }
+        $result = array();
 
-        return response()->json($realEstates);
+        $result['estates'] = $list;
+
+        return response()->json($result);
     }
 
-    # Show single RealEstates object from
-    public function show(string $id, Request $request) {        
-        $realEstate = RealEstates::select(
-            'id',
-            'title',
-            'city',
-            'address',
-            'bedrooms',
-            'bathrooms',
-            'price')
-        ->findOrFail($id);
+    public function show(string $id): JsonResponse {        
+        $realEstate = RealEstate::findOrFail($id);
 
         return response()->json($realEstate);
     }
 
-    # Create RealEstates object
-    public function store(Request $request) {
+    public function store(StoreEstateRequest $request): JsonResponse {
         $data = $request->json()->all();
-        // $validatedData = $request->validateWithBag([
-        //     'title' => ['required', 'max:200'],
-        //     'city' => ['required'],
-        // ]);
         
-        $realEstate = RealEstates::create($data);
+        $realEstate = RealEstate::create($data);
 
         return response()->json($realEstate, 201);
     }
 
-    # Edit RealEstates object
-    public function update(Request $request, string $id) {
-        $realEstate = RealEstates::findOrFail($id);
+    public function update(Request $request, string $id): JsonResponse {
+        $realEstate = RealEstate::findOrFail($id);
+
         $data = $request->json()->all();
+
         $realEstate->update($data);
 
         return response()->json($realEstate);
     }
 
-    # Delete RealEstates object
-    public function delete(string $id) {
-        $realEstate = RealEstates::findOrFail($id);
-        $title = $realEstate['title'];
+    public function delete(string $id): JsonResponse {
+        $realEstate = RealEstate::findOrFail($id);
+        
         $realEstate->delete();
 
-        return response()->json(['message' => $title.' deleted'], 200);
+        return response()->json(['message' => $realEstate['title'].' deleted']);
     }
 }

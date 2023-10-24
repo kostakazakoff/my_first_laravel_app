@@ -4,24 +4,17 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\RealEstates>
- */
-class RealEstatesFactory extends Factory
+class RealEstateFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
+            'user_id' => random_int(1, 10000),
             'title' => fake()->company,
             'city' => fake()->city,
             'address' => fake()->streetAddress,
-            'bedrooms' => fake()->randomDigitNotNull,
-            'bathrooms' => fake()->randomDigitNotNull,
+            'type' => fake()->realTextBetween(minNbChars:5, maxNbChars:20),
+            'rooms' => fake()->randomDigitNotNull,
             'price' => fake()->randomDigitNotNull,
         ];
     }

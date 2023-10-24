@@ -25,7 +25,7 @@ API Routes:
 '/real_estates/delete/{id}' => 'Delete real estate with id',
 */
 
-Route::get('/real_estates', [RealEstatesController::class, 'listAll']);
+Route::get('/real_estates', [RealEstatesController::class, 'list']);
 
 Route::get('/real_estates/{realEstate}', [RealEstatesController::class, 'show']);
 

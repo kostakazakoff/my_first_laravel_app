@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('real_estates', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
             $table->string('title');
             $table->string('city');
-            $table->text('address');
-            $table->integer('bedrooms');
-            $table->integer('bathrooms');
+            $table->string('address');
+            $table->string('type');
+            $table->integer('rooms');
             $table->decimal('price');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
