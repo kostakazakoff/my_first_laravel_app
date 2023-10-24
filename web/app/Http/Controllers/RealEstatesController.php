@@ -73,7 +73,7 @@ class RealEstatesController extends Controller
     }
 
     # Delete RealEstates object
-    public function delete($id) {
+    public function delete(string $id) {
         $realEstate = RealEstates::findOrFail($id);
         $title = $realEstate['title'];
         $realEstate->delete();
