@@ -12,8 +12,6 @@ class RealEstatesController extends Controller
     
     # Show all RealEstates objects
     public function listAll(Request $request) {
-        // $search = $request->input('search');
-
         $realEstates = RealEstates::all($columns = [
             'id',
             'title',
@@ -23,6 +21,11 @@ class RealEstatesController extends Controller
             'bathrooms',
             'price'
         ]);
+
+        // $filteredCollection = $realEstates->filter(function ($item) {
+        //     global $search;
+        //     return $item <= $search;
+        // })->values();
         
         // $result = array();
         // foreach($realEstates as $re) {
@@ -51,17 +54,17 @@ class RealEstatesController extends Controller
     public function store(Request $request) {
         $data = $request->json()->all();
         // $validatedData = $request->validateWithBag([
-        //     'title' => ['required', 'unique:posts', 'max:200'],
+        //     'title' => ['required', 'max:200'],
         //     'city' => ['required'],
         // ]);
-
+        
         $realEstate = RealEstates::create($data);
 
         return response()->json($realEstate, 201);
     }
 
     # Edit RealEstates object
-    public function update(Request $request, $id) {
+    public function update(Request $request, string $id) {
         $realEstate = RealEstates::findOrFail($id);
         $data = $request->json()->all();
         $realEstate->update($data);
