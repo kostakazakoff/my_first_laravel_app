@@ -17,12 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 /*
 API Routes:
-'/' => 'index',
-'/real_estates' => 'All real_estates',
-'/real_estates/{id}' => 'real_estate with id',
-'/real_estates/create' => 'Create real estate',
-'/real_estates/edit/{id}' => 'Update real estate with id',
-'/real_estates/delete/{id}' => 'Delete real estate with id',
+| '/' => 'index',
+| '/real_estates' => 'All real_estates',
+| '/real_estates/{id}' => 'real_estate with id',
+| '/real_estates/create' => 'Create real estate',
+| '/real_estates/edit/{id}' => 'Update real estate with id',
+| '/real_estates/delete/{id}' => 'Delete real estate with id',
 */
 
 Route::get('/real_estates', [RealEstatesController::class, 'list']);
