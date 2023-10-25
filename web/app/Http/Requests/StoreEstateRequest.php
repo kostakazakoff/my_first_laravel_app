@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreEstateRequest extends FormRequest
@@ -26,25 +27,44 @@ class StoreEstateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            /*
+            TODO: unique fields?
+            */
             'user_id' => 'required',
-            'title'=> 'required | min:2 | max:100',
-            'city' => 'required | min:2 | max:100',
-            'address' => 'required | min:2 | max:200',
-            'type' => 'required | min:2 | max:100',
-            'rooms' => 'required',
-            'price' => 'not required | default:0',
+            'title'=> 'required | string | min:2 | max:100',
+            'city' => 'required | string | min:2 | max:100',
+            'address' => 'required | string | min:2 | max:200',
+            'type' => 'required | string | min:2 | max:100',
+            'rooms' => 'required | integer',
+            'price' => 'required | decimal:0',
         ];
+    }
+
+    public function failedValidation(Validator $validator)
+    {
+        $result = array('Errors' => [
+            'success'   => false,
+            'message'   => 'Validation errors',
+            'data'      => $validator->errors()
+        ]);
+        throw new HttpResponseException(response()->json($result));
     }
 
     public function messages()
     {
         return [
-            'user_id.required' => 'User id is required',
-            'title.required' => 'Body is required',
-            // 'title.min' => 'Title must have minimum 2 characters',
-            // 'title.max' => 'Title must have maximum 100 characters',
-            // 'address.required' => 'Address is required',
-            // 'address.min' => 'Address must have minimum 2 characters',
+            'user_id.required' => 'User id field is required',
+            'title.required' => 'Title field is required',
+            'title.min' => 'Title must contain minimum 2 characters',
+            'title.max' => 'Title must contain maximum 100 characters',
+            'address.required' => 'Address field is required',
+            'address.min' => 'Address must contain minimum 2 characters',
+            'address.max' => 'Address must contain maximum 200 characters',
+            'type.required' => 'Type of the real estate field is required',
+            'type.min' => 'Real estate type must contain minimum 2 characters',
+            'type.max' => 'Real estate type must contain maximum 100 characters',
+            'rooms.required' => 'Rooms field is required',
+            'price.required' => 'Price field is required',
         ];
     }
 }
