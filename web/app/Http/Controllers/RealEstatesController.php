@@ -9,7 +9,6 @@ use Illuminate\Http\JsonResponse;
 
 class RealEstatesController extends Controller
 {
- 
     public function list(): ?JsonResponse {
         $list = RealEstate::all();
 
