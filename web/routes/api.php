@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 /*
-API Routes:
+API requests:
 | '/' => 'index',
 | '/real_estates' => 'All real_estates',
 | '/real_estates/{id}' => 'real_estate with id',

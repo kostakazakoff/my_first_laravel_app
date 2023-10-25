@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEstateRequest;
 use App\Models\RealEstate;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 
 class RealEstatesController extends Controller
