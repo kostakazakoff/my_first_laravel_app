@@ -31,7 +31,7 @@ class StoreEstateRequest extends FormRequest
             TODO: unique fields?
             */
             'user_id' => 'required',
-            'title'=> 'required | string | min:2 | max:100',
+            'title' => 'required | string | min:2 | max:100',
             'city' => 'required | string | min:2 | max:100',
             'address' => 'required | string | min:2 | max:200',
             'type' => 'required | string | min:2 | max:100',
